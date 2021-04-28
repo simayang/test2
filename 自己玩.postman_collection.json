@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "3a896b43-ba4f-47a0-9435-09cdb6f0b326",
+		"name": "自己玩",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "查天气-获取省份列表",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var test = JSON.parse(responseBody);",
+							"pm.globals.set(\"test\", test.result[10].id);",
+							"",
+							"//控制台查看",
+							"console.log(test);",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"检查内容是否等于\"] = jsonData.reason == \"查询成功\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/province?key=138441a2579d95be878e3b3ca58f58b6",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"province"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "138441a2579d95be878e3b3ca58f58b6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查天气-根据省份id获取城市id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"检查内容是否等于\"] = jsonData.reason == \"查询成功\"",
+							"",
+							"var test2 = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.globals.set(\"test2\", test2.result[37].id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							" console.log (\"验证有无取到值\")",
+							" console.log(pm.environment.get(\"test2\"))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "key",
+							"value": "138441a2579d95be878e3b3ca58f58b6",
+							"type": "text"
+						},
+						{
+							"key": "province_id",
+							"value": "{{test}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/citys",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"citys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查天气-根据城市id查询历史天气",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"检查内容是否等于\"] = jsonData.reason == \"查询成功\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "city_id",
+							"value": "{{test2}}",
+							"type": "text"
+						},
+						{
+							"key": "weather_date",
+							"value": "2017-07-15",
+							"type": "text"
+						},
+						{
+							"key": "key",
+							"value": "138441a2579d95be878e3b3ca58f58b6",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/weather?",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
