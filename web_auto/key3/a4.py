@@ -23,7 +23,7 @@ with sync_playwright() as p:
 
     # 定位select下拉框，先在控制台看一下语法对不对
     page.select_option("#pro_filter [name='project']","司马-示例")
-    # 本地
+    # 远程
     page.pause()
 
 
