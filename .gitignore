@@ -1,0 +1,4 @@
+web_auto/
+*.xml
+*.name
+.idea/
