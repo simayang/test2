@@ -3,3 +3,4 @@
 /myenv
 /pip-selfcheck.json
 /pyvenv.cfg
+*.xml
