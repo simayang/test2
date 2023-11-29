@@ -36,3 +36,5 @@ with sync_playwright() as p:
     page.locator("//*[@id='table']/tbody/tr/td[3]").get_by_text("测试").click()
 
     page.pause()# 打断点
+
+    # 本地mian
